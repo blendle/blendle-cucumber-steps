@@ -1,4 +1,4 @@
-# cucumber-blendle-steps
+# cucumber-blendle-steps [![wercker status](https://app.wercker.com/status/a041fddb02cd177bd800343184ea7635/s/master "wercker status")](https://app.wercker.com/project/bykey/a041fddb02cd177bd800343184ea7635)
 
 This gem combines some of the Cucumber steps used throughout all of Blendle
 projects.
