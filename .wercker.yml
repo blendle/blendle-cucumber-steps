@@ -1,0 +1,9 @@
+box: ruby
+
+build:
+  steps:
+  - bundle-install:
+    jobs: "8"
+  - script:
+    name: tests
+    code: bundle exec rake
