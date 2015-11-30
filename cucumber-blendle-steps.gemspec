@@ -6,7 +6,7 @@ require 'cucumber/blendle/version'
 Gem::Specification.new do |spec|
   spec.name     = 'cucumber-blendle-steps'
   spec.version  = Cucumber::BlendleSteps::VERSION
-  spec.authors  = %w(Jean Mertz)
+  spec.authors  = ['Jean Mertz']
   spec.email    = %w(jean@blendle.com)
   spec.summary  = 'Cucumber steps used by all of Blendle Ruby projects'
   spec.homepage = 'https://www.blendle.com'
