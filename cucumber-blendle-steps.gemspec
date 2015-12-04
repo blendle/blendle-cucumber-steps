@@ -22,9 +22,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hyperresource'
   spec.add_dependency 'json_spec'
   spec.add_dependency 'minitest'
-  spec.add_dependency 'rspec-expectations'
   spec.add_dependency 'rack-test'
   spec.add_dependency 'rack'
+  spec.add_dependency 'rspec-expectations'
+  spec.add_dependency 'sequel'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry'
