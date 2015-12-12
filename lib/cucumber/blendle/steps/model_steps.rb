@@ -1,4 +1,5 @@
 require 'active_support/core_ext/hash/keys'
+require 'active_support/core_ext/hash/compact'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/string/inflections'
 require 'sequel'
@@ -12,6 +13,20 @@ Given(/^the following (\S+) exist:$/) do |object, table|
     assert eval("#{object.singularize.capitalize}.create(hash)")
     step %(the following #{object.singularize} should exist:), table([hash.keys, hash.values])
   end
+end
+
+Given(/^the (\S+) with (\S+) "([^"]*)"(?: and(?: the)? (\S+) "([^"]*)")? exists$/) do |object, attribute1, value1, attribute2, value2|
+  hash = { attribute1 => value1, attribute2 => value2 }.symbolize_keys.compact
+
+  assert eval("#{object.singularize.capitalize}.create(hash)")
+  step %(the following #{object.singularize} should exist:), table([hash.keys, hash.values])
+end
+
+Given(/^the (\S+) with (\S+) "([^"]*)" and the following (\S+):$/) do |object, attribute1, value1, attribute2, value2|
+  hash = { attribute1 => value1, attribute2 => value2 }.symbolize_keys
+
+  assert eval("#{object.singularize.capitalize}.create(hash)")
+  step %(the following #{object.singularize} should exist:), table([hash.keys, hash.values])
 end
 
 Then(/^the (\S+) with (\S+)(?: \((\S+)\))? "([^"]*)" should( not)? exist$/) do |object, attribute, type, value, negate|
