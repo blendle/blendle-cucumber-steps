@@ -48,7 +48,13 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
 
   assert_match %r{^application/hal\+json(;.*)?$}, last_response.headers['Content-Type']
 
-  hal = Halidator.new(last_response.body)
+  hal = nil
+  begin
+    hal = Halidator.new(last_response.body)
+  rescue JSON::ParserError => e
+    assert false, [e.message, last_response.body].join("\n")
+  end
+
   assert hal.valid?, "Halidator errors: #{hal.errors.join(',')}"
 
   match = be_json_eql(json)
