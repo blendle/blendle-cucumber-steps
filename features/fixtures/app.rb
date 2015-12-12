@@ -1,12 +1,14 @@
 require 'webmachine'
 require 'webmachine/adapters/rack'
-require_relative 'item'
 
 # CucumberBlendleSteps
 #
 # Test setup to verify working Cucumber step definitions.
 #
 module CucumberBlendleSteps
+  class Item < Sequel::Model
+  end
+
   # :no-doc:
   class ItemResource < Webmachine::Resource
     def allowed_methods
@@ -39,16 +41,6 @@ module CucumberBlendleSteps
 
     def item_uid
       request.path_info[:item_uid]
-    end
-  end
-
-  App = Webmachine::Application.new do |app|
-    app.routes do
-      add ['item', :item_uid], ItemResource
-    end
-
-    app.configure do |config|
-      config.adapter = :Rack
     end
   end
 end
