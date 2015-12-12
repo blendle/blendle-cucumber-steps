@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [v0.3.2](https://github.com/blendle/cucumber-blendle-steps/tree/v0.3.2) (2015-12-12)
+[Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.3.1...v0.3.2)
+
 ## [v0.3.1](https://github.com/blendle/cucumber-blendle-steps/tree/v0.3.1) (2015-12-12)
 [Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.3.0...v0.3.1)
 
