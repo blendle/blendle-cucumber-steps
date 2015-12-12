@@ -9,7 +9,7 @@ require 'json'
 def dump(data)
   return unless ENV['DUMP']
   require 'mkmf'
-  if %w(clipboard cb).include?(ENV['DUMP']) && find_executable('pbcopy')
+  if %w(clipboard cb).include?(ENV['DUMP']) && find_executable0('pbcopy')
     IO.popen(['pbcopy'], 'w') { |f| f << pretty_sorted_json(data) }
   elsif %w(file tmp).include?(ENV['DUMP'])
     File.open('/tmp/dump', 'w') { |f| f << pretty_sorted_json(data) }
