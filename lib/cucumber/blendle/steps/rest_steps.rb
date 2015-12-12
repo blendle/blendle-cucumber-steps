@@ -21,7 +21,7 @@ When(/^the client does a (POST|PUT) request to "([^"]*)" with the following cont
 end
 
 Then(/^the status code should be "(\d+)" \((.+)\)/) do |status_code, status_message|
-  assert_equal status_code.to_i, last_response.status
+  assert_equal status_code.to_i, last_response.status, last_response.body
   assert_equal status_message, Rack::Utils::HTTP_STATUS_CODES[status_code.to_i]
 end
 
