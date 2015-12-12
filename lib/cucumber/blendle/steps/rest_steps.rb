@@ -48,12 +48,12 @@ Then('the response should contain the header "$" with value "$"') do |header, va
   assert_equal last_response.headers[header], value
 end
 
-# Then the response should be of type "application/json" with content:
-#   """json
-#   {
-#     "uid": "hello"
-#   }
-#   """
+# * Then the response should be of type "application/json" with content:
+#     """json
+#     {
+#       "uid": "hello"
+#     }
+#     """
 #
 Then(/^the response should be of type "([^"]*)" with content:$/) do |content_type, content|
   dump last_response.body
