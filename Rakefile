@@ -5,6 +5,20 @@ require 'cucumber/rake/task'
 require 'rubocop/rake_task'
 require 'rake/testtask'
 
+task 'changelog' do
+  args = %w(
+    --user=blendle
+    --project=cucumber-blendle-steps
+    --header-label="# CHANGELOG"
+    --bug-labels=type/bug,bug
+    --enhancement-labels=type/enhancement,enhancement
+    --future-release=unreleased
+    --no-verbose
+  )
+
+  sh %(github_changelog_generator #{args.join(' ')})
+end
+
 RuboCop::RakeTask.new
 
 Cucumber::Rake::Task.new(:features) do |t|
