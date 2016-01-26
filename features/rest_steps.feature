@@ -24,3 +24,8 @@ Feature:
         "uid": "test"
       }
       """
+
+  Scenario:
+    Given the client provides the header "Accept: application/hal+json"
+    When the client does 10 concurrent GET requests to "/item/test"
+    Then all requests should have succeeded

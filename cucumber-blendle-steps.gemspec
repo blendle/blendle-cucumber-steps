@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack'
   spec.add_dependency 'rspec-expectations'
   spec.add_dependency 'sequel'
+  spec.add_dependency 'typhoeus'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry'
