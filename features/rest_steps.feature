@@ -11,6 +11,7 @@ Feature:
     Given the client provides the header "Accept: application/hal+json"
     When the client does a GET request to "/item/test"
     Then the status code should be "200" (OK)
+    Then the response should contain the header "Content-Type" with value "application/hal+json"
     And the response should be HAL/JSON:
       """json
       {
