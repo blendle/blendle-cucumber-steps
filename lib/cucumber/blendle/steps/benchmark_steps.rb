@@ -8,7 +8,7 @@ end
 #
 When(/^the client does (\d+) concurrent GET requests to "([^"]*)"$/) do |count, url|
   hydra = Typhoeus::Hydra.new
-  @last_requests = count.to_i.times.map do
+  @last_requests = Array.new(count.to_i) do
     request = Typhoeus::Request.new(url, followlocation: true)
     hydra.queue(request)
     request
