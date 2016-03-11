@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = %w(lib)
 
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'chronic'
   spec.add_dependency 'cucumber'
   spec.add_dependency 'halidator'
   spec.add_dependency 'hyperresource'
@@ -26,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rack'
   spec.add_dependency 'rspec-expectations'
   spec.add_dependency 'sequel'
+  spec.add_dependency 'timecop'
   spec.add_dependency 'typhoeus'
 
   spec.add_development_dependency 'bundler'
