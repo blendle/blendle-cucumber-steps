@@ -103,7 +103,7 @@ def parse_row(row, object_name)
             when :datetime
               Timecop.return { Chronic.parse(value) || DateTime.parse(value) }
             when :boolean
-              value.to_s.casecmp('true')
+              value.to_s.downcase == 'true'
             when :string_array, :varchar_array, :bigint_array
               Sequel.pg_array(eval(value))
             else
