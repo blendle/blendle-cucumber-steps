@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hyperresource'
   spec.add_dependency 'json_spec'
   spec.add_dependency 'minitest'
+  spec.add_dependency 'liquid'
   spec.add_dependency 'rack-test'
   spec.add_dependency 'rack'
   spec.add_dependency 'rspec-expectations'

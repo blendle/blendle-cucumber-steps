@@ -71,6 +71,8 @@ end
 Then(/^the response should be JSON:$/) do |json|
   dump last_response.body
 
+  json = Liquid::Template.parse(json).render
+
   assert_equal last_response.headers['Content-Type'], 'application/json'
   expect(last_response.body).to be_json_eql(json)
 end
@@ -89,6 +91,11 @@ end
 #     }
 #     """
 #
+# NOTE: You can also use Liquid templating in your expectation, which will be
+# parsed before validation:
+#
+#   { "end_date": "{{ 'today' | date }}" } => { "date": "2016-03-15T14:00:00Z" }
+#
 Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\))?:$}) do |disregard, json|
   dump last_response.body
 
@@ -103,7 +110,9 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
 
   assert hal.valid?, "Halidator errors: #{hal.errors.join(',')}"
 
+  json  = Liquid::Template.parse(json).render
   match = be_json_eql(json)
+
   if disregard.present?
     disregard.split(',').each do |attribute|
       match = match.excluding(attribute)
