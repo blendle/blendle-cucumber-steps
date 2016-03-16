@@ -1,5 +1,12 @@
 require 'json'
 
+After do |scenario|
+  next unless scenario.failed?
+
+  ENV['DUMP'] = 'true'
+  dump(last_response.body)
+end
+
 # Dump a string/text to the clipboard or a file if the correct
 # environment variable is set.
 #
@@ -8,11 +15,13 @@ require 'json'
 #
 def dump(data)
   return unless ENV['DUMP']
+
   require 'mkmf'
-  if %w(clipboard cb).include?(ENV['DUMP']) && find_executable0('pbcopy')
-    IO.popen(['pbcopy'], 'w') { |f| f << pretty_sorted_json(data) }
-  elsif %w(file tmp).include?(ENV['DUMP'])
+
+  if %w(file tmp).include?(ENV['DUMP'])
     File.open('/tmp/dump', 'w') { |f| f << pretty_sorted_json(data) }
+  elsif ENV['DUMP'] && find_executable0('pbcopy')
+    IO.popen(['pbcopy'], 'w') { |f| f << pretty_sorted_json(data) }
   end
 end
 
