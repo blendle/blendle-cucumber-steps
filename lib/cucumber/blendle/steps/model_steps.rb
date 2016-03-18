@@ -95,6 +95,7 @@ def parse_row(row, object_name)
   hash = row.map do |attribute, value|
     column = schema.reverse.find { |c| c.first.to_s == attribute.to_s } || []
 
+    next [attribute.to_sym, Sequel.pg_array(value)] if value.is_a?(Array)
     next [attribute.to_sym, value] unless value.is_a?(String)
 
     value = case column.last.to_h[:type]
