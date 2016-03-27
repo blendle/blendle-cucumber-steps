@@ -4,7 +4,9 @@ require 'time'
 
 module Cucumber
   module BlendleSteps
+    # :no-doc:
     class LiquidFilters
+      # :no-doc:
       module Date
         def date(input)
           Timecop.return { Chronic.parse(input) || DateTime.parse(input) }.utc.iso8601
