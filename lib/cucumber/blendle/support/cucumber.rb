@@ -1,6 +1,6 @@
 Before do |scenario|
   @scenario_name = scenario.name
-  @scenario_hash = Digest::SHA1.hexdigest(@scenario_name)[5]
+  @scenario_hash = Digest::SHA1.hexdigest(@scenario_name)[0...5]
   @scenario_tags = scenario.source_tag_names
 end
 
