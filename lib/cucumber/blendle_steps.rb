@@ -1,5 +1,6 @@
 require 'cucumber/blendle/helpers/liquid_filters'
 
+require 'cucumber/blendle/support/cucumber'
 require 'cucumber/blendle/support/dump'
 require 'cucumber/blendle/support/hyper_resource'
 require 'cucumber/blendle/support/json_spec'
