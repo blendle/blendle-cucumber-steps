@@ -97,7 +97,7 @@ def parse_row(row, object_name)
 
     next [attribute.to_sym, Sequel.pg_array(value)] if value.is_a?(Array)
     next [attribute.to_sym, value] unless value.is_a?(String)
-    next [attribute.to_sym, nil] if value == 'nil'
+    next [attribute.to_sym, nil] if value == 'NULL'
 
     value = case column.last.to_h[:type]
             when :integer
