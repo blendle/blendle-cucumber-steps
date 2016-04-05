@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [v0.7.2](https://github.com/blendle/cucumber-blendle-steps/tree/v0.7.2) (2016-04-05)
+[Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.7.1...v0.7.2)
+
+**Closed issues:**
+
+- improve model steps to know which type a value should be before saving [\#3](https://github.com/blendle/cucumber-blendle-steps/issues/3)
+
+**Merged pull requests:**
+
+- Add support for nil expectations [\#4](https://github.com/blendle/cucumber-blendle-steps/pull/4) ([broeken](https://github.com/broeken))
+
 ## [v0.7.1](https://github.com/blendle/cucumber-blendle-steps/tree/v0.7.1) (2016-03-27)
 [Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.7.0...v0.7.1)
 
