@@ -48,10 +48,11 @@ end
 # * Then the item with uid "hello" should not exist
 #
 Then(/^the (\S+) with (\S+) "([^"]*)" should( not)? exist$/) do |object, attribute, value, negate|
-  hash      = parse_row({ attribute => value }, object)
   assertion = negate ? 'blank?' : 'present?'
+  hash      = parse_row({ attribute => value }, object)
+  klass     = object.tr(' ', '_').singularize.classify
 
-  assert eval("#{object.tr(' ', '_').singularize.classify}.first(hash).#{assertion}"),
+  assert eval("row_finder(klass, hash).#{assertion}"),
          %(#{object.capitalize} not found \(#{attribute}: #{value}\))
 end
 
@@ -67,7 +68,7 @@ Then(/^the following (.+)? should( not)? exist:$/) do |object, negate, table|
     hash = parse_row(row, object)
     klass = object.tr(' ', '_').singularize.classify
 
-    assert eval("#{klass}.first(hash).#{assertion}"),
+    assert eval("row_finder(klass, hash).#{assertion}"),
            "Could not find requested #{object}:\n\n" \
            "- #{hash}\n" \
            "+ #{Object.const_get(klass).all.map(&:values).join("\n+ ")}"
@@ -83,9 +84,10 @@ end
 # @param [String] object_name to be parsed
 # @return [Hash] hash representation of key/values in table
 #
+# rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/PerceivedComplexity
 #
 def parse_row(row, object_name)
   table  = object_name.tr(' ', '_')
@@ -108,6 +110,8 @@ def parse_row(row, object_name)
               value.to_s.casecmp('true').zero?
             when :string_array, :varchar_array, :bigint_array
               Sequel.pg_array(eval(value))
+            when :jsonb
+              Sequel.pg_jsonb(eval(value))
             else
               value
             end
@@ -116,4 +120,17 @@ def parse_row(row, object_name)
   end
 
   Hash[hash]
+end
+
+def row_finder(klass, hash)
+  ext = 'where'
+  query = hash.each_with_object({}) do |(key, value), q|
+    if value.is_a?(Sequel::Postgres::JSONBHash)
+      ext = "where { Sequel.pg_jsonb(:#{key}).contains(#{value}) }"
+    else
+      q[key] = value
+    end
+  end
+
+  eval "#{klass}.#{ext}.first(query)"
 end
