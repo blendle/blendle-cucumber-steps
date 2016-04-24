@@ -6,6 +6,6 @@ module Cucumber
   # This module defines default steps used by all of Blendle Ruby projects.
   #
   module BlendleSteps
-    VERSION = '0.7.3'.freeze
+    VERSION = '0.8.0'.freeze
   end
 end
