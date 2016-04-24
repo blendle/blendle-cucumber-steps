@@ -90,7 +90,7 @@ end
 def parse_row(row, object_name)
   table  = object_name.tr(' ', '_')
   klass  = Object.const_get(table.singularize.classify)
-  schema = klass.db.schema(table)
+  schema = klass.db.schema(klass.table_name)
 
   hash = row.map do |attribute, value|
     column = schema.reverse.find { |c| c.first.to_s == attribute.to_s } || []
