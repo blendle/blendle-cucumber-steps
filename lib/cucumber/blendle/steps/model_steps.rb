@@ -75,6 +75,17 @@ Then(/^the following (.+)? should( not)? exist:$/) do |object, negate, table|
   end
 end
 
+# * Then there should be 5 item records
+# * Then there should be 1 item record
+# * Then there should be 0 item records
+#
+Then(/^there should be (\d+) (.+)? records?$/) do |count, object|
+  count = count.to_i
+  klass = object.tr(' ', '_').singularize.classify
+
+  assert_equal(klass.constantize.count, count)
+end
+
 # parse_row
 #
 # Given a Cucumber table row, parses the type "numbers (Array)" and converts the
