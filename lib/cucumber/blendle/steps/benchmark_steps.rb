@@ -41,6 +41,7 @@ When(/^I start measuring time$/) do
     assert false, 'measuring time requires the "@performance" tag to be present.'
   end
 
+  @performance_stop_time  = nil
   @performance_start_time = Timecop.return { Time.now }
 end
 
@@ -84,6 +85,7 @@ Then(/^exactly (\d+) database queries have been executed/) do |query_count|
   puts "queries counted: #{DBProfiler.query_count}"
 
   expect(DBProfiler.query_count).to eql(query_count.to_i)
+  DBProfiler.stop
 end
 
 # Stops the DBProfiler, resetting the query counter, and disabling debug output
