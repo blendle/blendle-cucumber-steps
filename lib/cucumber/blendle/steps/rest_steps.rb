@@ -58,8 +58,15 @@ end
 Then(/^the response should be of type "([^"]*)" with content:$/) do |content_type, content|
   dump last_response.body
 
+  content = Liquid::Template.parse(content).render
+
   assert_equal content_type, last_response.headers['Content-Type']
-  assert_equal content, last_response.body
+
+  if content_type.include?('json')
+    expect(last_response.body).to be_json_eql(content)
+  else
+    assert_equal content, last_response.body
+  end
 end
 
 # * Then the response should be JSON:
@@ -68,13 +75,8 @@ end
 #       "uid": "hello"
 #     }
 #     """
-Then(/^the response should be JSON:$/) do |json|
-  dump last_response.body
-
-  json = Liquid::Template.parse(json).render
-
-  assert_equal last_response.headers['Content-Type'], 'application/json'
-  expect(last_response.body).to be_json_eql(json)
+Then(/^the response should be JSON:$/) do |content|
+  step 'the response should be of type "application/json" with content:', content
 end
 
 # * Then the response should be HAL/JSON:
