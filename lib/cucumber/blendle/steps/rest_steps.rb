@@ -45,7 +45,7 @@ end
 # * Then the response should contain the header "Location" with value "https://example.org/item/hello"
 #
 Then(/^the response should contain the header "([^"]*)" with value "([^"]*)"$/) do |header, value|
-  assert_equal last_response.headers[header], value
+  assert_equal value, last_response.headers[header]
 end
 
 # * Then the response should be of type "application/json" with content:
