@@ -21,20 +21,11 @@ end
 #
 When(/^the client does a (GET|POST|DELETE) request to the "([^"]*)" resource with these template variables:$/) do |method, resource, table|
   params = {}
-  current_accept_header = current_session.instance_variable_get(:@headers)['Accept']
-
-  step %(the client provides the header "Accept: application/hal+json")
-  body = JSON.parse(get('/api').body)
-
-  if current_accept_header
-    step %(the client provides the header "Accept: #{current_accept_header}")
-  end
-
   table && table.hashes.each do |row|
     params[row['key']] = row['value']
   end
 
-  api = HyperResource.from_body(body)
+  api = HyperResource.from_body(api_body)
   url = api.send(resource, params).href
   step %(the client does a #{method} request to "#{url}")
 end
@@ -48,8 +39,7 @@ end
 #     """
 #
 When(/^the client does a (GET|POST|DELETE) request to the "([^"]*)" resource with the following content:$/) do |method, resource, content|
-  body = JSON.parse(get('/api').body)
-  api  = HyperResource.from_body(body)
+  api  = HyperResource.from_body(api_body)
   url  = api.send(resource, {}).href
 
   step %(the client does a #{method} request to "#{url}" with the following content:), content
@@ -63,9 +53,23 @@ end
 #     """
 #
 When(/^the client does a (POST|PUT) request to the "([^"]*)" resource with the template variable "([^"]*)" set to "([^"]*)" and the following content:$/) do |method, resource, key, value, content|
-  body = JSON.parse(get('/api').body)
-  api  = HyperResource.from_body(body)
+  api  = HyperResource.from_body(api_body)
   url  = api.send(resource, key => value).href
 
   step %(the client does a #{method} request to "#{url}" with the following content:), content
+end
+
+def api_body
+  current_accept_header = current_session.instance_variable_get(:@headers)['Accept']
+
+  step %(the client provides the header "Accept: application/hal+json")
+  body = JSON.parse(get('/api').body)
+
+  if current_accept_header
+    step %(the client provides the header "Accept: #{current_accept_header}")
+  else
+    header('Accept', nil)
+  end
+
+  body
 end
