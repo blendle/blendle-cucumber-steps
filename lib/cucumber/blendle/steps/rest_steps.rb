@@ -108,8 +108,6 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
     assert false, [e.message, last_response.body].join("\n")
   end
 
-  assert hal.valid?, "Halidator errors: #{hal.errors.join(',')}"
-
   json  = Liquid::Template.parse(json).render
   match = be_json_eql(json)
 
@@ -120,6 +118,7 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
   end
 
   expect(last_response.body).to match
+  assert hal.valid?, "Halidator errors: #{hal.errors.join(',')}"
 end
 
 # * Then the response contains the "Location" header with value "https://example.org/item/hello"
