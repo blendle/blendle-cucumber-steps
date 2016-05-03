@@ -45,8 +45,9 @@ def prettify_hash(hash)
 
   hash = unshift_hash_key('_embedded', hash)
   hash = unshift_hash_key('_links', hash)
+  hash['_links'] = unshift_hash_key('self', hash['_links']) if hash['_links']
 
-  hash
+  hash.sort.to_h
 end
 
 def unshift_hash_key(key, hash)
