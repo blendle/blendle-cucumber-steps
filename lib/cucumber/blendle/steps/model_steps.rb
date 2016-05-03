@@ -136,7 +136,7 @@ end
 def row_finder(klass, hash)
   ext = 'where'
   query = hash.each_with_object({}) do |(key, value), q|
-    if value.is_a?(Sequel::Postgres::JSONBHash)
+    if defined?(Sequel::Postgres) && value.is_a?(Sequel::Postgres::JSONBHash)
       ext = "where { Sequel.pg_jsonb(:#{key}).contains(#{value}) }"
     else
       q[key] = value
