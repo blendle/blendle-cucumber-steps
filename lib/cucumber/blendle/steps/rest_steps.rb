@@ -124,7 +124,12 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
 end
 
 # * Then the response contains the "Location" header with value "https://example.org/item/hello"
+# * Then the response contains the "Last-Modified" header
 #
-Then(/^the response contains the "(.*?)" header with value "(.*?)"$/) do |header, value|
-  assert_equal value, last_response.headers[header]
+Then(/^the response contains the "(.*?)" header(?: with value "(.*?)")?$/) do |header, value|
+  if value
+    assert_equal value, last_response.headers[header]
+  else
+    assert last_response.headers[header], "missing header: #{header}"
+  end
 end
