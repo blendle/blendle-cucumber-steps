@@ -83,7 +83,7 @@ Then(/^there should be (\d+) (.+)? records?$/) do |count, object|
   count = count.to_i
   klass = object.tr(' ', '_').singularize.classify
 
-  assert_equal(klass.constantize.count, count)
+  assert_equal(count, klass.constantize.count)
 end
 
 # parse_row
