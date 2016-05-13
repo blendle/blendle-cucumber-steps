@@ -5,13 +5,13 @@ require 'rack/utils'
 
 # * When the client does a GET request to "/items"
 #
-When('the client does a GET request to "$1"') do |path|
+When(/^the client does a GET request to "([^"]*)"$/) do |path|
   get(path, {}, {})
 end
 
 # * When the client provides the header "Accept: application/hal+json"
 #
-When(/^the client provides the header ["']([^"']*)["']$/) do |header|
+When(/^the client provides the header ["'](.*?)["']$/) do |header|
   name, value = header.split(/\s*:\s*/)
   header(name, value)
 end
