@@ -43,13 +43,16 @@ def prettify_hash(hash)
     end
   end
 
+  order_hal_json_keys(hash).sort.to_h
+end
+
+def order_hal_json_keys(hash)
   hash = unshift_hash_key('_embedded', hash)
   hash = unshift_hash_key('_links', hash)
   hash['_links'] = unshift_hash_key('health', hash['_links']) if hash['_links']
   hash['_links'] = unshift_hash_key('api', hash['_links']) if hash['_links']
   hash['_links'] = unshift_hash_key('self', hash['_links']) if hash['_links']
-
-  hash.sort.to_h
+  hash
 end
 
 def unshift_hash_key(key, hash)
