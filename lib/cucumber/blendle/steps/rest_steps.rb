@@ -105,7 +105,7 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
 
   hal = nil
   begin
-    hal = Halidator.new(last_response.body)
+    hal = Halidator.new(last_response.body, :json_schema)
   rescue JSON::ParserError => e
     assert false, [e.message, last_response.body].join("\n")
   end
