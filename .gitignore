@@ -1,2 +1,3 @@
-pkg/
+.wercker/
 Gemfile.lock
+pkg/

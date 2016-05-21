@@ -2,6 +2,11 @@ box: ruby
 
 build:
   steps:
+  - script:
+    name: fix Bundler issue
+    code: |
+      gem update --system 2.6.1
+      gem install bundler --version $BUNDLER_VERSION
   - bundle-install:
     jobs: "8"
   - script:
