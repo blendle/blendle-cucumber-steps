@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [v0.8.7](https://github.com/blendle/cucumber-blendle-steps/tree/v0.8.7) (2016-06-02)
+[Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.8.6...v0.8.7)
+
+## [v0.8.6](https://github.com/blendle/cucumber-blendle-steps/tree/v0.8.6) (2016-05-21)
+[Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.8.5...v0.8.6)
+
+## [v0.8.5](https://github.com/blendle/cucumber-blendle-steps/tree/v0.8.5) (2016-05-13)
+[Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.8.4...v0.8.5)
+
 ## [v0.8.4](https://github.com/blendle/cucumber-blendle-steps/tree/v0.8.4) (2016-05-05)
 [Full Changelog](https://github.com/blendle/cucumber-blendle-steps/compare/v0.8.3...v0.8.4)
 
