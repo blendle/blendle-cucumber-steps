@@ -119,7 +119,7 @@ def parse_row(row, object_name)
               Timecop.return { Chronic.parse(value) || DateTime.parse(value) }
             when :boolean
               value.to_s.casecmp('true').zero?
-            when :string_array, :varchar_array, :bigint_array
+            when :string_array, :varchar_array, :bigint_array, :integer_array
               Sequel.pg_array(eval(value))
             when :jsonb
               Sequel.pg_jsonb(eval(value))
