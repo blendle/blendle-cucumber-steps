@@ -99,16 +99,7 @@ end
 #   { "end_date": "{{ 'today' | date }}" } => { "date": "2016-03-15T14:00:00Z" }
 #
 Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\))?:$}) do |disregard, json|
-  dump last_response.body
-
-  assert_match %r{^application/hal\+json(;.*)?$}, last_response.headers['Content-Type']
-
-  hal = nil
-  begin
-    hal = Halidator.new(last_response.body, :json_schema)
-  rescue JSON::ParserError => e
-    assert false, [e.message, last_response.body].join("\n")
-  end
+  step("the response should be HAL/JSON")
 
   json  = Liquid::Template.parse(json).render
   match = be_json_eql(json)
@@ -120,7 +111,6 @@ Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\
   end
 
   expect(last_response.body).to match
-  assert hal.valid?, "Halidator errors: #{hal.errors.join(',')}"
 end
 
 # * Then the response contains the "Location" header with value "https://example.org/item/hello"
@@ -132,4 +122,26 @@ Then(/^the response contains the "(.*?)" header(?: with value "(.*?)")?$/) do |h
   else
     assert last_response.headers[header], "missing header: #{header}"
   end
+end
+
+# * Then the response at "_embedded/b:subscription-product" should include:
+#     """json
+#     {
+#       "eligible": false
+#     }
+#     """
+Then(/^the response at "(.*)" should include:$/) do |path, json|
+  expect(JsonSpec::Helpers.parse_json(last_response.body, path)).to include(JSON.parse(json))
+end
+
+Then(%r{^the response should be HAL\/JSON$}) do
+  assert_match %r{^application/hal\+json(;.*)?$}, last_response.headers['Content-Type']
+
+  hal = nil
+  begin
+    hal = Halidator.new(last_response.body, :json_schema)
+  rescue JSON::ParserError => e
+    assert false, [e.message, last_response.body].join("\n")
+  end
+  expect(hal).to be_valid, "Halidator errors: #{hal.errors.join(',')}"
 end
