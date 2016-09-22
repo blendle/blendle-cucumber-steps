@@ -123,6 +123,8 @@ def parse_row(row, object_name)
               Sequel.pg_array(eval(value))
             when :jsonb
               Sequel.pg_jsonb(eval(value))
+            when :hstore
+              Sequel.hstore(eval(value))
             else
               value
             end
