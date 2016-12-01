@@ -59,6 +59,20 @@ When(/^the client does a (POST|PUT) request to the "([^"]*)" resource with the t
   step %(the client does a #{method} request to "#{url}" with the following content:), content
 end
 
+# * When the client does a POST request to the "user_item_preference" resource with the template variable "user_id" set to "bartsimpson" and the template variable "item_id" set to "bnl-telegraaf-20130212-1" and the following content:
+#   """json
+#   {
+#     "prefer": "less"
+#   }
+#   """
+#
+When(/^the client does a (POST|PUT) request to the "([^"]*)" resource with the template variable "([^"]*)" set to "([^"]*)" and the template variable "([^"]*)" set to "([^"]*)" and the following content:$/) do |method, resource, key, value, key2, value2, content|
+  api  = HyperResource.from_body(api_body)
+  url  = api.send(resource, key => value, key2 => value2).href
+
+  step %(the client does a #{method} request to "#{url}" with the following content:), content
+end
+
 def api_body
   current_accept_header = current_session.instance_variable_get(:@headers)['Accept']
 
