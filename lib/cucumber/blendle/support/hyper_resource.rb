@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'hyperresource'
 
 def HyperResource.from_body(body)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'webmachine'
 require 'webmachine/adapters/rack'
 
@@ -12,7 +14,7 @@ module CucumberBlendleSteps
   # :no-doc:
   class ItemResource < Webmachine::Resource
     def allowed_methods
-      %w(GET)
+      %w[GET]
     end
 
     def content_types_provided

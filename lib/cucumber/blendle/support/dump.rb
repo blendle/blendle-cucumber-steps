@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 After do |scenario|
@@ -18,7 +20,7 @@ def dump(data)
 
   require 'mkmf'
 
-  if %w(file tmp).include?(ENV['DUMP'])
+  if %w[file tmp].include?(ENV['DUMP'])
     File.open('/tmp/dump', 'w') { |f| f << pretty_sorted_json(data) }
   elsif ENV['DUMP'] && find_executable0('pbcopy')
     IO.popen(['pbcopy'], 'w') { |f| f << pretty_sorted_json(data) }

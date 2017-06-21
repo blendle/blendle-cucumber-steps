@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'rubygems'
 require 'cucumber'
@@ -6,7 +8,7 @@ require 'rubocop/rake_task'
 require 'rake/testtask'
 
 task 'changelog' do
-  args = %w(
+  args = %w[
     --user=blendle
     --project=cucumber-blendle-steps
     --header-label="# CHANGELOG"
@@ -14,7 +16,7 @@ task 'changelog' do
     --enhancement-labels=type/enhancement,enhancement
     --future-release=unreleased
     --no-verbose
-  )
+  ]
 
   sh %(github_changelog_generator #{args.join(' ')})
 end
@@ -31,4 +33,4 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-task default: [:rubocop, :test, :features]
+task default: %i[rubocop test features]

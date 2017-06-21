@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/LineLength
 
 require 'halidator'
@@ -99,7 +101,7 @@ end
 #   { "end_date": "{{ 'today' | date }}" } => { "date": "2016-03-15T14:00:00Z" }
 #
 Then(%r{^the response should be HAL/JSON(?: \(disregarding values? of "([^"]*)"\))?:$}) do |disregard, json|
-  step("the response should be HAL/JSON")
+  step('the response should be HAL/JSON')
 
   json  = Liquid::Template.parse(json).render
   match = be_json_eql(json)
