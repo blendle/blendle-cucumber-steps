@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 
@@ -19,11 +21,11 @@ Given(/^the following endpoint configurations:$/) do |table|
   table.hashes.each do |row|
     payload = { request: {}, response: {} }
 
-    %i(method endpoint).each do |option|
+    %i[method endpoint].each do |option|
       payload[:request][option.to_sym] = row[option.to_s]
     end
 
-    %i(status headers body).each do |option|
+    %i[status headers body].each do |option|
       payload[:response][option.to_sym] = row[option.to_s]
     end
 

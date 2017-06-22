@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'cucumber/blendle/helpers/liquid_filters'
 
 require 'cucumber/blendle/support/cucumber'

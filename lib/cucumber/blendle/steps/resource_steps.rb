@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/LineLength
 
 # * When the client does a GET request to the "items" resource
@@ -9,7 +11,7 @@ end
 # * When the client does a GET request to the "item" resource with the template variable "item_uid" set to "hello"
 #
 When(/^the client does a (GET|POST|DELETE) request to the "([^"]*)" resource with the template variable "([^"]*)" set to "([^"]*)"$/) do |method, resource, key, value|
-  tables = [%w(key value), [key, value]]
+  tables = [%w[key value], [key, value]]
 
   step %(the client does a #{method} request to the "#{resource}" resource with these template variables:), table(tables)
 end
