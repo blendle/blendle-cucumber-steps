@@ -5,7 +5,7 @@ require 'json'
 After do |scenario|
   next unless scenario.failed? && ENV['AUTO_DUMP'] != 'false'
 
-  ENV['DUMP'] = 'true'
+  ENV['DUMP'] ||= 'true'
   dump(last_response.body)
 end
 
