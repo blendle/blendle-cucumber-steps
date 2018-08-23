@@ -14,7 +14,7 @@ require 'sequel'
 #     | hello | 100   |
 #     | world | 10    |
 #
-Given(/^the following ((?:(?!should).)+) exist:$/) do |object, table|
+Given(/^the following ([^ ]+) exist:$/) do |object, table|
   table.hashes.each do |row|
     hash = parse_row(row, object)
 
