@@ -18,7 +18,7 @@ Given(/^the following ([^ ]+) exist:$/) do |object, table|
   table.hashes.each do |row|
     hash = parse_row(row, object)
 
-    assert eval("#{object.tr(' ', '_').singularize.classify}.create(hash)")
+    assert eval("#{Cucumber::BlendleSteps.model_prefix}#{object.tr(' ', '_').singularize.classify}.create(hash)")
     step %(the following #{object} should exist:), table([hash.keys, hash.values])
   end
 end
@@ -30,7 +30,7 @@ end
 Given(/^the (\S+) with (\S+) "([^"]*)"(?: and(?: the)? (\S+) "([^"]*)")? exists$/) do |object, attribute1, value1, attribute2, value2|
   hash = { attribute1 => value1, attribute2 => value2 }.symbolize_keys.compact
 
-  assert eval("#{object.tr(' ', '_').singularize.classify}.create(hash)")
+  assert eval("#{Cucumber::BlendleSteps.model_prefix}#{object.tr(' ', '_').singularize.classify}.create(hash)")
   step %(the following #{object} should exist:), table([hash.keys, hash.values])
 end
 
@@ -42,7 +42,7 @@ end
 Given(/^the (\S+) with (\S+) "([^"]*)" and the following (\S+):$/) do |object, attribute1, value1, attribute2, value2|
   hash = { attribute1 => value1, attribute2 => value2 }.symbolize_keys
 
-  assert eval("#{object.tr(' ', '_').singularize.classify}.create(hash)")
+  assert eval("#{Cucumber::BlendleSteps.model_prefix}#{object.tr(' ', '_').singularize.classify}.create(hash)")
   step %(the following #{object} should exist:), table([hash.keys, hash.values])
 end
 
@@ -52,7 +52,7 @@ end
 Then(/^the (\S+) with (\S+) "([^"]*)" should( not)? exist$/) do |object, attribute, value, negate|
   assertion = negate ? 'blank?' : 'present?'
   hash      = parse_row({ attribute => value }, object)
-  klass     = object.tr(' ', '_').singularize.classify
+  klass     = Cucumber::BlendleSteps.model_prefix + object.tr(' ', '_').singularize.classify
 
   assert eval("row_finder(klass, hash).#{assertion}"),
          %(#{object.capitalize} not found \(#{attribute}: #{value}\))
@@ -68,7 +68,7 @@ Then(/^the following (.+)? should( not)? exist:$/) do |object, negate, table|
 
   table.hashes.each do |row|
     hash = parse_row(row, object)
-    klass = object.tr(' ', '_').singularize.classify
+    klass = Cucumber::BlendleSteps.model_prefix + object.tr(' ', '_').singularize.classify
 
     assert eval("row_finder(klass, hash).#{assertion}"),
            "Could not find requested #{object}:\n\n" \
@@ -83,7 +83,7 @@ end
 #
 Then(/^there should be (\d+) (.+)? records?$/) do |count, object|
   count = count.to_i
-  klass = object.tr(' ', '_').singularize.classify
+  klass = Cucumber::BlendleSteps.model_prefix + object.tr(' ', '_').singularize.classify
 
   assert_equal(count, klass.constantize.count)
 end
@@ -104,7 +104,7 @@ end
 #
 def parse_row(row, object_name)
   table  = object_name.tr(' ', '_')
-  klass  = Object.const_get(table.singularize.classify)
+  klass  = Object.const_get(Cucumber::BlendleSteps.model_prefix + table.singularize.classify)
   schema = klass.db.schema(klass.table_name)
 
   hash = row.map do |attribute, value|

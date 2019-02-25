@@ -15,3 +15,13 @@ require 'cucumber/blendle/steps/mock_server_steps'
 require 'cucumber/blendle/steps/model_steps'
 require 'cucumber/blendle/steps/resource_steps'
 require 'cucumber/blendle/steps/rest_steps'
+
+module Cucumber
+  module BlendleSteps
+    class << self
+      attr_accessor :model_prefix
+    end
+  end
+end
+
+Cucumber::BlendleSteps.model_prefix = '' # Default to empty prefix
